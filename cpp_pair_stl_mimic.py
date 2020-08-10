@@ -37,29 +37,3 @@ class Pair:
 
 ################################################################
 ################################################################
-
-# example 1
-pairEg = Pair()
-pairEg.make_pair("moo", 93)
-
-print("First pair:")
-print("first: ", pairEg.first)
-print("second: ", pairEg.second)
-print("\nFirst pair after swapping:")
-
-Pair.swap(pairEg)
-
-print("first: ", pairEg.first)
-print("second: ", pairEg.second)
-
-# example 2
-
-pairEg2 = Pair(16.8, "lol")
-
-print("\nSecond pair:")
-print("first: ", pairEg2.first)
-print("second: ", pairEg2.second)
-print("get() function output: ", end="")
-
-pairEg2.get()
-
