@@ -1,14 +1,16 @@
 #!/bin/python3
 import math
+from cpp_pair_stl_mimic import Pair
+
 # reminder    x = radius*cos(theta), y = radius*sin(theta)
 # hence    theta = arccos(x/radius) or arcsin(y/radius)
 
 
-def genXcartesian(radius, angle):
+def genXcartesian(radius, angle) -> float:
     return radius*math.cos(angle)
 
 
-def genYcartesian(radius, angle):
+def genYcartesian(radius, angle) -> float:
     return radius*math.sin(angle)
 
 
@@ -26,12 +28,57 @@ side = radius*2*math.sin(math.pi/noOfSides)
 # the angle between two neighbouring diameters of the polygon
 angle = (math.pi*2)/noOfSides
 theta = angle
-for i in range(1, noOfSides+1):
-    print("for point ", i)
-    print("x:", x + genXcartesian(radius, theta))
-    print("y:", y + genYcartesian(radius, theta))
+print("\n------------------------")
+print("Side length = %f" % side)
+print("------------------------\n")
 
-    theta += angle
+pairXY = Pair(0, 0)  # point pair template and nothing makes more sense than the origin
 
-print("Side length =", side)
+points = [pairXY]*(noOfSides+1)
+for point in range(1, noOfSides+1):
+    points[point] = Pair(x + genXcartesian(radius, theta), y + genYcartesian(radius, theta))
+    print("Point", point, "(", points[point].first, ",", points[point].second, ")")
+    theta += angle  # add proper comment plz
+
+
+# Points with index-1
+# to calculate the slopes duh.😐
+prevPoints = [pairXY]*(noOfSides+1)
+differences = [pairXY]*(noOfSides+1)
+
+for point in range(1, noOfSides+1):
+    
+    prevPoints[point].first = points[point-1].first
+    prevPoints[point].second = points[point-1].second
+
+    differences[point] = Pair(points[point].first - prevPoints[point].first
+            , points[point].second - prevPoints[point].second)
+
+
+# add comment from cpp version plz
+differences[1].first = points[1].first - points[noOfSides].first
+differences[1].second = points[1].second - points[noOfSides].second
+
+
+print("\n------------------------\n")
+# comment
+slope = None
+
+for point in range(1, noOfSides+1):
+    # comment
+    if differences[point].first == 0:
+        print("Side %d Equation: " % point, end="")
+        print("y", point, " =", points[point].first)
+    # comment
+    else:
+        slope = differences[point].second / differences[point].first
+        print("Side %d Equation: " % point, end="")
+        print("y%d = %f*(x - %f) + %f" % (point, slope, points[point].first, points[point].second))
+        #print("y", point, " =", slope, "*( x -", points[point].first, ") + ", points[point].second)
+
+# comment
+print("\n------------------------\n")
+print("Circumferting circle's equation:")
+print("(x - %lf)^2 + (y - %lf)^2 = %lf \n" %(x, y, pow(radius, 2)))
+
 ## Mafs LOL
