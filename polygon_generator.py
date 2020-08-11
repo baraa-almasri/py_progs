@@ -21,11 +21,11 @@ x, y = float(input()), float(input())
 
 noOfSides = int(input("Enter number of sides of the polygon: "))
 
-# radius = S/2sin(pi/n)
-# S = radius*2sin(pi/n)
+# from r = S/2sin(pi/n)    |  S is the side length
+# we got S = r*2sin(pi/n)  |    for future confusion
 side = radius*2*math.sin(math.pi/noOfSides)
 
-# the angle between two neighbouring diameters of the polygon
+# the angle between two neighbouring diameters of the polygon in radians
 angle = (math.pi*2)/noOfSides
 theta = angle
 print("\n------------------------")
@@ -34,11 +34,18 @@ print("------------------------\n")
 
 pairXY = Pair(0, 0)  # point pair template and nothing makes more sense than the origin
 
+# calculating points' polar coordinates (compared to the center of the polygon),
+# then converting them into catesian coordinates(compared to the center of the polygon),
+# and adding the coordinates of the center.
+# then voila we got the coordinates of the vertices(heads) 🎉🎉
+
 points = [pairXY]*(noOfSides+1)
 for point in range(1, noOfSides+1):
     points[point] = Pair(x + genXcartesian(radius, theta), y + genYcartesian(radius, theta))
     print("Point", point, "(", points[point].first, ",", points[point].second, ")")
-    theta += angle  # add proper comment plz
+    theta += angle # theta represents sum of angels of the polygon
+
+# also I started indexes with one so the first is the origin (0,0)
 
 
 # Points with index-1
@@ -55,28 +62,28 @@ for point in range(1, noOfSides+1):
             , points[point].second - prevPoints[point].second)
 
 
-# add comment from cpp version plz
+# difference between the first and the last point so it's useful for their line
 differences[1].first = points[1].first - points[noOfSides].first
 differences[1].second = points[1].second - points[noOfSides].second
 
 
 print("\n------------------------\n")
-# comment
+# finally the slopes and lines equation generation
 slope = None
 
 for point in range(1, noOfSides+1):
-    # comment
+    # for vertical slopes since you can't devide by zero 🙃
     if differences[point].first == 0:
         print("Side %d Equation: " % point, end="")
         print("y", point, " =", points[point].first)
-    # comment
+    # for normal slopes that doesn't involve deviding by zero 🎉
     else:
         slope = differences[point].second / differences[point].first
         print("Side %d Equation: " % point, end="")
         print("y%d = %f*(x - %f) + %f" % (point, slope, points[point].first, points[point].second))
         #print("y", point, " =", slope, "*( x -", points[point].first, ") + ", points[point].second)
 
-# comment
+# last but not least, I liked to add it, so that every juicable thing is here 👽👽
 print("\n------------------------\n")
 print("Circumferting circle's equation:")
 print("(x - %lf)^2 + (y - %lf)^2 = %lf \n" %(x, y, pow(radius, 2)))
