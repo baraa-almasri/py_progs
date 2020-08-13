@@ -11,19 +11,19 @@ while True:
     
     # create a json weather file
     weatherFile = open("weather.json", "w")
-
+    # set url
     weatherUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=2fb1078b1ae351cef587e0b7a1e479f0"
-
+    # get weather data from the given url
     rawWeatherData = requests.get(weatherUrl).json()
-
+    # put weather data to a json file ps: not really needed but....
     json.dump(rawWeatherData, weatherFile, indent= 4)
 
     # reopen file in reading mode
     weatherFile.close()
     weatherFile = open("weather.json", "r")
 
+    # load json file to memory
     weatherData = json.load(weatherFile)
-
 
     # set weather variables 
     try:
