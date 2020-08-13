@@ -42,6 +42,7 @@ while True:
 
 
     # print weather data
+    print("City: %s\n" % cityName)
     print("Real Temperature: %.1f°C" % realTemp)
     print("Temperature: %.1f°C" % temp)
     print("Status: %s" % description)
