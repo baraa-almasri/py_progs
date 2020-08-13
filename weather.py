@@ -25,7 +25,7 @@ while True:
     weatherData = json.load(weatherFile)
 
 
-    
+    # set weather variables 
     try:
         temp = weatherData['main']['temp'] - 273.15
         description = weatherData['weather'][0]['description']
@@ -41,7 +41,7 @@ while True:
         exit(0)
 
 
-
+    # print weather data
     print("Real Temperature: %.1f°C" % realTemp)
     print("Temperature: %.1f°C" % temp)
     print("Status: %s" % description)
@@ -53,6 +53,8 @@ while True:
     print("Sunrise: %s" % sunrise)
     print("Sunset: %s" % sunset)
 
+    # halt for one second to make it look good
     sleep(1)
+    # clear screen
     print('\033c')
 
