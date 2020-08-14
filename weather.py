@@ -54,8 +54,8 @@ while True:
     print("Sunrise: %s" % sunrise)
     print("Sunset: %s" % sunset)
 
-    # halt for one second to make it look good
-    sleep(1)
+    # refresh every 5 seconds
+    sleep(5)
     # clear screen
     print('\033c')
-
+    weatherFile.close()
