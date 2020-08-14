@@ -13,3 +13,5 @@ from HexaShell import HexaShell
 
 hexaShell = HexaShell()
 hexaShell.prompt()
+
+#print( os.getenv("USER"))
