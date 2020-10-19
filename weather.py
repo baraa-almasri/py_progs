@@ -10,13 +10,10 @@ class Weather:
     def __init__(self, cityName: str):
         # set city name
         self.__cityName = cityName
-        # weather file .json
-        self.__weatherFile = None
         # weather json variables
         self.__weatherData = None
 
-        self.__loadWeatherDataToJsonFile()
-        self.__loadJsonFromFile()
+        self.__downloadWeatherData()
 
     def getWeather(self):
         
@@ -40,13 +37,11 @@ class Weather:
             sleep(5)
             # clear screen
             print('\033c')
-            self.__weatherFile.close()
 
 
     def __updateWeatherVaraibles(self):
 
-        self.__loadWeatherDataToJsonFile()
-        self.__loadJsonFromFile()
+        self.__downloadWeatherData()
 
         try:
             self.__temp = self.__weatherData['main']['temp'] - 273.15
@@ -63,27 +58,14 @@ class Weather:
             exit(0)
 
 
-    def __loadJsonFromFile(self):
-        # reopen file in reading mode
-        self.__weatherFile.close()
-        self.__weatherFile = open("weather.json", "r")
-
-        # load json file to memory
-        self.__weatherData = json.load(self.__weatherFile)
-
-
-    def __loadWeatherDataToJsonFile(self):
-        # create a json weather file
-        self.__weatherFile = open("weather.json", "w")
+    def __downloadWeatherData(self):
         # set url
         weatherUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + self.__cityName + "&appid=2fb1078b1ae351cef587e0b7a1e479f0"
         # get weather data from the given url
-        rawWeatherData = requests.get(weatherUrl).json()
-        # put weather data to a json file ps: not really needed but....
-        json.dump(rawWeatherData, self.__weatherFile, indent= 4)
+        self.__weatherData = requests.get(weatherUrl).json()
 
 
 if __name__ == "__main__":
 
-    w = Weather("Amman")
+    w = Weather("Damascus")
     w.getWeather()
