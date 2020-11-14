@@ -44,7 +44,7 @@ class NotesTaker:
 
 
 if __name__ == "__main__":
-    note = NotesTaker("root", "goo.gl/czSD68", "localhost")
+    note = NotesTaker("hmm", "hmm", "hmm")
     note.addNote("Blyat", "The Sky is High AF")
     note.listNotes()
 
