@@ -29,6 +29,7 @@ class NotesTaker:
     def addNote(self, title: str, content: str):
         self.__dbCursor.execute("INSERT INTO `NotesData` (`Date`, `Title`, `Content`)\
                                 VALUES (CURRENT_DATE (), %s, %s)", (title, content))
+        self.__notesDB.commit()
 
     def __connectToDB(self):
         try:
