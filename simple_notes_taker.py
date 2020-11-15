@@ -46,7 +46,7 @@ class NotesTaker:
 
 if __name__ == "__main__":
     note = NotesTaker("hmm", "hmm", "hmm")
-    note.addNote("Blyat", "The Sky is High AF")
+    note.addNote("Blyat!", "The Sky is High AF Blyat")
     note.listNotes()
 
     del note
